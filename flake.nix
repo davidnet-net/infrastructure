@@ -56,17 +56,19 @@
       installer_x86_64 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/installer_x86_64/configuration.nix
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          ./hosts/installer_x86_64/configuration.nix # General Config
+          ./shared/splash.nix # SPLASH / TTY
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix" # Nix ISO stuff
         ];
       };
 
       testserver = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          disko.nixosModules.disko
-          ./hosts/testserver/configuration.nix
-          ./hosts/testserver/disko-config.nix
+          disko.nixosModules.disko # Disk
+          ./hosts/testserver/configuration.nix # General Config
+          ./shared/splash.nix # SPLASH / TTY
+          ./hosts/testserver/disko-config.nix # Disk
         ];
 
         # Use cleanSrc so large files like VM images are ignored

@@ -35,3 +35,21 @@ Use the installer ISO's to start an headless initer.
 From then on and after first boot update using:
 
 ``` nixos-anywhere --debug --flake .#hostname --target-host root@hostname -p 22 ```
+
+# Notes
+
+## QEMU TTY
+In qemu tty can be switched using the qemu console
+
+``` ctrl + alt + 2 ```
+
+Enter
+
+``` sendkey ctrl-alt-f2 ```
+
+Return to vm
+
+``` ctrl + alt + 1 ```
+
+## Hardware stuff:
+https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/5/default.nix

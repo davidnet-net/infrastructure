@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  splash = import ../../shared/splash.nix;
+in
 {
   # Enable SSH server
   services.openssh.enable = true;
