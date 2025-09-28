@@ -56,7 +56,7 @@
 
     sleep 2
 
-    echo "      Welcome to $HOSTNAME - Booted: $(date)        "
+    echo "Welcome to $HOSTNAME - Booted: $(date)"
     echo "----------------------------------------------------"
     echo "   TTY1 - DN Splash | TTY2 - LOGS | TTY3 - Console  "
     echo "----------------------------------------------------"
