@@ -22,8 +22,10 @@
 
   # Enable SSH server
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
-  services.openssh.permitRootLogin = "prohibit-password";
+
+  # Enforce SSH keys
+  services.openssh.settings.PasswordAuthentication = false;
+  services.openssh.settings.PermitRootLogin = "prohibit-password";
 
   # Root user authorized key
   users.users.root = {

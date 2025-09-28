@@ -4,10 +4,25 @@ let
   splash = import ../../shared/splash.nix;
 in
 {
+  # META
+  networking.hostName = "testserver";
+  time.timeZone = "Europe/Amsterdam";
+
+  # Time synchronization
+  services.timesyncd.enable = true;
+  services.timesyncd.servers = [
+    "0.nl.pool.ntp.org"
+    "1.nl.pool.ntp.org"
+    "2.nl.pool.ntp.org"
+  ];
+
+  # Journald configuration
+  services.journald.extraConfig = "SystemMaxUse=500M\nRateLimitInterval=30s\nRateLimitBurst=1000";
+
   # Enable SSH server
   services.openssh.enable = true;
 
-  # Disable password login completely
+  # Enforce SSH keys
   services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.PermitRootLogin = "prohibit-password";
 
@@ -19,7 +34,10 @@ in
     ];
   };
 
-   # Firewall
+  # System packages
+  environment.systemPackages = with pkgs; [ micro wget curl sl ];
+
+  # Firewall
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 ];
 

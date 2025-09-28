@@ -56,11 +56,11 @@
 
     sleep 2
 
-    echo "      Welcome to ${HOSTNAME} - Booted: $(date)      "
+    echo "      Welcome to $HOSTNAME - Booted: $(date)        "
     echo "----------------------------------------------------"
     echo "   TTY1 - DN Splash | TTY2 - LOGS | TTY3 - Console  "
     echo "----------------------------------------------------"
-    echo "       root@${HOSTNAME}:22 | root@${IP}:22          "
+    echo "         root@$HOSTNAME:22 | root@$IP:22            "
     echo "                                                    "
     echo "           NOTICE: SSH key access only              "
     echo "----------------------------------------------------"
