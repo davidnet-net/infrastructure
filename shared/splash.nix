@@ -40,8 +40,6 @@
     systemctl disable getty@tty2.service
 
     sleep 10
-    HOSTNAME=$(hostname)
-    IP=$(hostname -I | awk '{print $1}')
     /run/current-system/sw/bin/clear
 
     # ASCII art
@@ -52,15 +50,20 @@
           / /_/ / /_/ /| |/ / / /_/ / / / /  __/ /_  
           /_____/\__,_/ |___/_/\__,_/_/ /_/\___/\__/  
                                                       
+                      Davidnet Server 
+
+                   
     EOF
 
+    echo -n "Loading network info..."
     sleep 2
+    echo -ne "\r                \r"
 
-    echo "Welcome to $HOSTNAME - Booted: $(date)"
+    echo "Welcome to $(/run/current-system/sw/bin/hostname) - Booted: $(date)"
     echo "----------------------------------------------------"
     echo "   TTY1 - DN Splash | TTY2 - LOGS | TTY3 - Console  "
     echo "----------------------------------------------------"
-    echo "         root@$HOSTNAME:22 | root@$IP:22            "
+    echo "         root@$(/run/current-system/sw/bin/hostname):22 | root@$(/run/current-system/sw/bin/ip -4 addr show scope global | /run/current-system/sw/bin/awk '/inet / {print $2; exit}' | /run/current-system/sw/bin/cut -d/ -f1):22        "
     echo "                                                    "
     echo "           NOTICE: SSH key access only              "
     echo "----------------------------------------------------"

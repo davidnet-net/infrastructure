@@ -5,7 +5,7 @@ let
 in
 {
   # META
-  networking.hostName = "testserver";
+  networking.hostName = "installer_x86_64";
   time.timeZone = "UTC";
 
   # Time synchronization

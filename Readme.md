@@ -53,3 +53,8 @@ Return to vm
 
 ## Hardware stuff:
 https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/5/default.nix
+
+## Timezone
+
+NOTICE: USING UTC TIMEZONE
+
