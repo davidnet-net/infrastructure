@@ -6,7 +6,7 @@ in
 {
   # META
   networking.hostName = "testserver";
-  time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "UTC";
 
   # Time synchronization
   services.timesyncd.enable = true;
