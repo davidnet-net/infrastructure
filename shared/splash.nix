@@ -56,8 +56,19 @@
     EOF
 
     echo -n "Loading network info..."
+    echo -n "Waiting for network to start..."
+    while true; do
+      IP=$(/run/current-system/sw/bin/ip -4 addr show scope global | \
+          /run/current-system/sw/bin/awk '/inet / {print $2; exit}' | \
+          /run/current-system/sw/bin/cut -d/ -f1)
+      if [ -n "$IP" ]; then
+        break
+      fi
+      sleep 1
+    done
     sleep 2
-    echo -ne "\r                \r"
+    echo -ne "\r                          \r\033[1A\r                          \r"
+
 
     echo "Welcome to $(/run/current-system/sw/bin/hostname) - Booted: $(date)"
     echo "----------------------------------------------------"
