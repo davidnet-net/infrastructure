@@ -50,13 +50,13 @@
           / /_/ / /_/ /| |/ / / /_/ / / / /  __/ /_  
           /_____/\__,_/ |___/_/\__,_/_/ /_/\___/\__/  
                                                       
-                      Davidnet Server 
+                      Loading thingies 
 
                    
     EOF
 
-    echo -n "Loading network info..."
-    echo -n "Waiting for network to start..."
+    echo "Loading network info..."
+    echo "Waiting for network to start..."
     while true; do
       IP=$(/run/current-system/sw/bin/ip -4 addr show scope global | \
           /run/current-system/sw/bin/awk '/inet / {print $2; exit}' | \
@@ -67,7 +67,18 @@
       sleep 1
     done
     sleep 2
-    echo -ne "\r                          \r\033[1A\r                          \r"
+    /run/current-system/sw/bin/clear
+    cat <<'EOF'
+              ____              _     __           __ 
+            / __ \____ __   __(_)___/ /___  ___  / /_
+            / / / / __ `/ | / / / __  / __ \/ _ \/ __/
+          / /_/ / /_/ /| |/ / / /_/ / / / /  __/ /_  
+          /_____/\__,_/ |___/_/\__,_/_/ /_/\___/\__/  
+                                                      
+                      Davidnet Server 
+
+                   
+    EOF
 
 
     echo "Welcome to $(/run/current-system/sw/bin/hostname) - Booted: $(date)"
