@@ -32,6 +32,7 @@
     isNormalUser = false;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAmE2BO6bcsMuVHhoRUOXo6TCxqQmlI4lADGlCh8LAL3 david@davidnet.net"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG701hxSDnsfnmVDdjVjoDtS9UjJTvzipFrYLXSdUT04 david@davidnet.net"
     ];
   };
 

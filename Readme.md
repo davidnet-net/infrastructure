@@ -23,7 +23,7 @@ To start the VM run ``` bash meta/scripts/run.sh ```
 
 Add the ``` --keepdisk ``` flag if you want to keep your disk.
 
-Use nixos-everywhere as following ``` nixos-anywhere --debug --flake .#server1 --target-host root@localhost -p 2222 ```
+Use nixos-everywhere as following ``` nixos-anywhere --debug --flake .#testserver --target-host root@localhost -p 2222 ```
 
 Make sure to use the testserver host
 
