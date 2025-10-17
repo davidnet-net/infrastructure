@@ -3,7 +3,7 @@
 {
   # Enable Plymouth and set the theme
   boot.plymouth.enable = true;
-  boot.plymouth.theme = "bgrt";
+  boot.plymouth.theme = "fade-in";
   boot.kernelParams = [ "quiet" "splash" ];
   boot.plymouth.logo = "${config.environment.etc."/boot/bootsplash.png".source}";
   environment.etc."/boot/bootsplash.png".source = ./bootsplash.png;
