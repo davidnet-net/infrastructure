@@ -1,6 +1,16 @@
 { config, pkgs, ... }:
 
 {
+  # Boot splash
+  boot.plymouth.enable = true;
+  boot.plymouth.theme = "custom-splash";
+  environment.etc."plymouth/themes/custom-splash/custom-splash.plymouth".source = ''
+    [Plymouth Theme]
+    Name=Custom Splash
+    Image=/boot/bootsplash.png  # Ensure this path points correctly to your PNG
+  '';
+  environment.etc."bootsplash.png".source = ./bootsplash.png;  # Point to your PNG
+
  # Custom splash service on TTY1
   systemd.services."davidnet-splash" = {
     description = "Davidnet Splash";
