@@ -74,6 +74,20 @@
         # Use cleanSrc so large files like VM images are ignored
         specialArgs = { inherit cleanSrc; };
       };
+
+      asuslaptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko # Disk
+          ./hosts/asuslaptop/configuration.nix # General Config
+          ./shared/splash.nix # SPLASH / TTY
+          ./hosts/asuslaptop/disko-config.nix # Disk
+          ./hosts/asuslaptop/hardware-config.nix # Hardware
+        ];
+
+        # Use cleanSrc so large files like VM images are ignored
+        specialArgs = { inherit cleanSrc; };
+      };
     };
   };
 }
