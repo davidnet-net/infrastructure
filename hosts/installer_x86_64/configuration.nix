@@ -30,12 +30,12 @@ in
   users.users.root = {
     isNormalUser = false;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAmE2BO6bcsMuVHhoRUOXo6TCxqQmlI4lADGlCh8LAL3 david@davidnet.net"
-	  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG701hxSDnsfnmVDdjVjoDtS9UjJTvzipFrYLXSdUT04 david@davidnet.net"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII+TdfBM57RH+AKlZUFFN3uu4SWRvrcFrEB3uBQsl6L4 david@davidnet.net"
     ];
   };
 
   # System packages
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [ micro wget curl sl ];
 
   # Firewall
