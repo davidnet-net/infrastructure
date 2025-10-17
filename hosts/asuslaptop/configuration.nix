@@ -7,7 +7,7 @@
   boot.loader.timeout = 0;
   
   # META
-  networking.hostName = "testserver";
+  networking.hostName = "asuslaptop";
   time.timeZone = "UTC";
 
   # Time synchronization
