@@ -17,7 +17,6 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                esp = true;
               };
             };
             root = {
