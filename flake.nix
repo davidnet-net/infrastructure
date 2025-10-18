@@ -6,9 +6,10 @@
     nixos-anywhere.url = "github:nix-community/nixos-anywhere";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = { self, nixpkgs, nixos-anywhere, disko }: 
+  outputs = { self, nixpkgs, nixos-anywhere, disko, agenix }: 
     let
       # NixIgnore - Prevents the nixstore from ballooning
       cleanSrc = nixpkgs.lib.cleanSource ./. {
@@ -16,6 +17,8 @@
           "dev/run/**"
           "dev/ovmf/**"
           "result"
+          "secrets/keys/shared.agekey"
+          "secrets/raw/**"
         ];
       };
     in
@@ -26,7 +29,11 @@
     packages.x86_64-linux.libvirt = nixpkgs.legacyPackages.x86_64-linux.libvirt;
     packages.x86_64-linux.wget = nixpkgs.legacyPackages.x86_64-linux.wget;
     packages.x86_64-linux.git = nixpkgs.legacyPackages.x86_64-linux.git;
-
+    packages.x86_64-linux.age = nixpkgs.legacyPackages.x86_64-linux.age;
+    packages.x86_64-linux.micro = nixpkgs.legacyPackages.x86_64-linux.micro;
+    packages.x86_64-linux.agenix = agenix.packages.x86_64-linux.agenix;
+    packages.x86_64-linux.nixosAnywhere = nixos-anywhere.packages.x86_64-linux.default;
+   
     # Dev Packages
     packages.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
       buildInputs = [
@@ -35,6 +42,10 @@
         nixpkgs.legacyPackages.x86_64-linux.libvirt
         nixpkgs.legacyPackages.x86_64-linux.wget
         nixpkgs.legacyPackages.x86_64-linux.git
+        nixpkgs.legacyPackages.x86_64-linux.age
+        nixpkgs.legacyPackages.x86_64-linux.micro
+        agenix.packages.x86_64-linux.agenix
+        nixos-anywhere.packages.x86_64-linux.default
       ];
     };
 
@@ -46,9 +57,17 @@
         nixpkgs.legacyPackages.x86_64-linux.libvirt
         nixpkgs.legacyPackages.x86_64-linux.wget
         nixpkgs.legacyPackages.x86_64-linux.git
-        
+        nixpkgs.legacyPackages.x86_64-linux.age
+        nixpkgs.legacyPackages.x86_64-linux.micro
+        agenix.packages.x86_64-linux.agenix
         nixos-anywhere.packages.x86_64-linux.default
       ];
+
+      shellHook = ''
+        export EDITOR=micro
+        export RULES=./secrets.nix
+        export INNIXDEVSHELL=true
+      '';
     };
 
     # Hosts:

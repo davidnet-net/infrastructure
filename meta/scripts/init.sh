@@ -19,6 +19,14 @@ if  [ "$host_arch" == "aarch64" ]; then
     log "ARM ARCH - Is not tested in DEV!" "WARNING"
 fi
 
+#? Enter NIX dev shell
+if [ "$INNIXDEVSHELL" = "true" ]; then
+  echo "Already inside the devshell (:"
+else
+  echo "Entering NIX dev shell."
+  nix develop
+fi
+
 #? Config Check
 log "Running config check"
 config_check=("x86_64_nixOS_minimal_iso" "aarch64_nixOS_minimal_iso" "x86_64_nixOS_minimal_iso_hash" "aarch64_nixOS_minimal_iso_hash")
@@ -113,6 +121,7 @@ for file_path in "${!files_to_cache[@]}"; do
 done
 
 cp -r /usr/share/OVMF/* ./dev/ovmf
+log "Caching complete" "OK"
 
 #? Timings
 end_time=$(date +%s%3N)
@@ -124,3 +133,6 @@ seconds=$(((elapsed_ms % 60000) / 1000))
 milliseconds=$((elapsed_ms % 1000))
 
 log "Finished INIT in $(printf '%02d:%02d:%02d:%03d' $hours $minutes $seconds $milliseconds)" "NOTE"
+
+log "Please decrypt the secrets"
+age -d -o secrets/keys/shared.agekey meta/shared.agekey.age

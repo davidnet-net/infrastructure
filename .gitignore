@@ -1,2 +1,4 @@
 dev
 result
+secrets/keys/shared.agekey
+secrets/raw/*
