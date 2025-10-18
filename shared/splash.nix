@@ -46,7 +46,6 @@
     systemctl stop getty@tty2.service
     systemctl disable getty@tty2.service
 
-    sleep 10
     /run/current-system/sw/bin/clear
 
     # ASCII art
@@ -88,14 +87,14 @@
     EOF
 
 
-    echo "Welcome to $(/run/current-system/sw/bin/hostname) - Booted: $(date)"
-    echo "----------------------------------------------------"
-    echo "   TTY1 - DN Splash | TTY2 - LOGS | TTY3 - Console  "
-    echo "----------------------------------------------------"
-    echo "         root@$(/run/current-system/sw/bin/hostname):22 | root@$(/run/current-system/sw/bin/ip -4 addr show scope global | /run/current-system/sw/bin/awk '/inet / {print $2; exit}' | /run/current-system/sw/bin/cut -d/ -f1):22        "
+    echo "Host: $(/run/current-system/sw/bin/hostname) - Booted: $(date)"
+    echo "----------------------------------------------------------"
+    echo "         TTY1 - DN Splash | TTY2 - LOGS | TTY3 - Console  "
+    echo "----------------------------------------------------------"
+    echo "              root@$(/run/current-system/sw/bin/hostname):22 | root@$(/run/current-system/sw/bin/ip -4 addr show scope global | /run/current-system/sw/bin/awk '/inet / {print $2; exit}' | /run/current-system/sw/bin/cut -d/ -f1):22        "
     echo "                                                    "
-    echo "           NOTICE: SSH key access only              "
-    echo "----------------------------------------------------"
+    echo "                NOTICE: SSH key access only              "
+    echo "----------------------------------------------------------"
   '';
 
   # Logs script for TTY2
