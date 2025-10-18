@@ -76,12 +76,12 @@
       installer_x86_64 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           ./hosts/installer_x86_64/configuration.nix
           ./shared/common.nix
           ./shared/locals.nix
           ./shared/security.nix
           ./shared/splash.nix
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         ];
 
         # Use cleanSrc so large files like VM images are ignored
