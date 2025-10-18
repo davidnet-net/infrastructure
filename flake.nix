@@ -16,6 +16,7 @@
         exclude = [
           "dev/run/**"
           "dev/ovmf/**"
+          "dev/kube/**"
           "result"
           "secrets/keys/shared.agekey"
           "secrets/raw/**"
@@ -33,7 +34,7 @@
     packages.x86_64-linux.micro = nixpkgs.legacyPackages.x86_64-linux.micro;
     packages.x86_64-linux.agenix = agenix.packages.x86_64-linux.agenix;
     packages.x86_64-linux.nixosAnywhere = nixos-anywhere.packages.x86_64-linux.default;
-   
+
     # Dev Packages
     packages.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
       buildInputs = [

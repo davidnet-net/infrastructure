@@ -6,7 +6,17 @@
 
   # System packages
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [ micro wget curl sl ];
+  environment.systemPackages = with pkgs; [
+    kubernetes-helm
+    helmfile
+    kubectl
+
+    htop
+    tree
+    micro
+    wget
+    curl
+  ];
 
   # NIX Garbage collection
   nix.gc = {
