@@ -134,5 +134,11 @@ milliseconds=$((elapsed_ms % 1000))
 
 log "Finished INIT in $(printf '%02d:%02d:%02d:%03d' $hours $minutes $seconds $milliseconds)" "NOTE"
 
-log "Please decrypt the secrets"
-age -d -o secrets/keys/shared.agekey meta/shared.agekey.age
+log "Checking secrets"
+if [ -f "secrets/keys/shared.agekey" ]; then
+    log " - shared.agekey" "OK"
+else
+    log "Please decrypt the secrets" "NOTE"
+    age -d -o secrets/keys/shared.agekey meta/shared.agekey.age
+fi
+log "Script completed" "NOTE"
