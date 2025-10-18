@@ -53,36 +53,54 @@
 
     # Hosts:
     nixosConfigurations = {
+      # Installer ISO
       installer_x86_64 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/installer_x86_64/configuration.nix # General Config
-          ./shared/splash.nix # SPLASH / TTY
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix" # Nix ISO stuff
-        ];
-      };
-
-      testserver = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko # Disk
-          ./hosts/testserver/configuration.nix # General Config
-          ./shared/splash.nix # SPLASH / TTY
-          ./hosts/testserver/disko-config.nix # Disk
+          ./hosts/installer_x86_64/configuration.nix
+          ./shared/common.nix
+          ./shared/locals.nix
+          ./shared/security.nix
+          ./shared/splash.nix
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         ];
 
         # Use cleanSrc so large files like VM images are ignored
         specialArgs = { inherit cleanSrc; };
       };
 
+
+      # For use in the VM
+      testserver = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/testserver/configuration.nix
+          ./hosts/testserver/disko-config.nix
+          ./shared/common.nix
+          ./shared/locals.nix
+          ./shared/security.nix
+          ./shared/splash.nix
+          ./shared/k3s.nix
+        ];
+
+        # Use cleanSrc so large files like VM images are ignored
+        specialArgs = { inherit cleanSrc; };
+      };
+
+
+      # Normal servers:
       asuslaptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          disko.nixosModules.disko # Disk
-          ./hosts/asuslaptop/configuration.nix # General Config
-          ./shared/splash.nix # SPLASH / TTY
-          ./hosts/asuslaptop/disko-config.nix # Disk
-          ./hosts/asuslaptop/hardware-config.nix # Hardware
+          disko.nixosModules.disko
+          ./hosts/asuslaptop/configuration.nix
+          ./hosts/asuslaptop/disko-config.nix
+          ./hosts/asuslaptop/hardware-config.nix
+          ./shared/common.nix
+          ./shared/locals.nix
+          ./shared/security.nix
+          ./shared/k3s.nix
         ];
 
         # Use cleanSrc so large files like VM images are ignored

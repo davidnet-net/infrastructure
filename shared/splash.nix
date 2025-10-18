@@ -30,7 +30,7 @@
       Type = "simple";
       ExecStart = "${pkgs.bash}/bin/bash /etc/davidnet-logs.sh";
       StandardOutput = "tty";
-      TTYPath = "/dev/tty2";
+      TTYPath = "/dev/tty  # K3S2";
       TTYReset = true;
       TTYVHangup = true;
     };
