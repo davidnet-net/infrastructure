@@ -1,5 +1,9 @@
-{
-  age.identityPaths = [ "/etc/agenix/shared.agekey" ]; # PRIVATE KEY to decrypt with.
+{ config, pkgs, ... }:
+
+let
+  sharedKeyPath = "/etc/agenix/shared.agekey";
+in {
+  age.identityPaths = [ sharedKeyPath ];
 
   age.secrets.k3s-token = {
     file = ../secrets/k3s-token.age;

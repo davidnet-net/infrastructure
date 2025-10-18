@@ -94,6 +94,7 @@
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
+          agenix.nixosModules.default
           ./hosts/testserver/configuration.nix
           ./hosts/testserver/disko-config.nix
           ./shared/common.nix
@@ -114,6 +115,7 @@
         system = "x86_64-linux";
         modules = [
           disko.nixosModules.disko
+          agenix.nixosModules.default
           ./hosts/asuslaptop/configuration.nix
           ./hosts/asuslaptop/disko-config.nix
           ./hosts/asuslaptop/hardware-config.nix

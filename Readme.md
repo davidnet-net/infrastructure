@@ -25,7 +25,7 @@ To start the VM run ``` bash meta/scripts/run.sh ```
 
 Add the ``` --keepdisk ``` flag if you want to keep your disk.
 
-Use nixos-everywhere as following ``` nixos-anywhere --debug --flake .#testserver --target-host --copy-files secrets/keys/shared.agekey:/etc/agenix/shared.agekeyroot@localhost -p 2222 ```
+Deploy as following ``` bash meta/scripts/deploy.sh -h testserver -s localhost -p 2222 ```
 
 Make sure to use the testserver host
 
@@ -36,7 +36,7 @@ Use the installer ISO's to start an headless initer.
 
 From then on and after first boot update using:
 
-``` nixos-anywhere --debug --flake .#hostname --copy-files secrets/keys/shared.agekey:/etc/agenix/shared.agekey --target-host root@hostname -p 22 ```
+``` bash meta/scripts/deploy.sh -h hostname -s host -p 22 ```
 
 # Notes
 

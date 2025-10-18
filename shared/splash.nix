@@ -91,7 +91,7 @@
     echo "----------------------------------------------------------"
     echo "         TTY1 - DN Splash | TTY2 - LOGS | TTY3 - Console  "
     echo "----------------------------------------------------------"
-    echo "              root@$(/run/current-system/sw/bin/hostname):22 | root@$(/run/current-system/sw/bin/ip -4 addr show scope global | /run/current-system/sw/bin/awk '/inet / {print $2; exit}' | /run/current-system/sw/bin/cut -d/ -f1):22        "
+    echo "           root@$(/run/current-system/sw/bin/hostname):22 | root@$(/run/current-system/sw/bin/ip -4 addr show scope global | /run/current-system/sw/bin/awk '/inet / {print $2; exit}' | /run/current-system/sw/bin/cut -d/ -f1):22        "
     echo "                                                    "
     echo "                NOTICE: SSH key access only              "
     echo "----------------------------------------------------------"
