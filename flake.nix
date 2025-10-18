@@ -99,6 +99,7 @@
           ./shared/common.nix
           ./shared/locals.nix
           ./shared/security.nix
+          ./shared/secrets.nix
           ./shared/splash.nix
           ./shared/k3s.nix
         ];
@@ -119,6 +120,8 @@
           ./shared/common.nix
           ./shared/locals.nix
           ./shared/security.nix
+          ./shared/secrets.nix
+          ./shared/splash.nix
           ./shared/k3s.nix
         ];
 

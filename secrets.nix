@@ -15,9 +15,3 @@
 
 
 # Decryption happens in ./shared/secrets.nix
-
-# Make sure to get the private key on the server somehow
-#nixos-anywhere \
-#  --flake .#uhanhost \
-#  --copy-files secrets/keys/shared.agekey:/etc/agenix/shared.agekey \
-#  root@hostname
