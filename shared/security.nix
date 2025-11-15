@@ -59,5 +59,4 @@
   # Security flags
   security.sudo.enable = false;
   security.sudo-rs.enable = true;
-  systemd.tmpfiles.rules = [ "f /boot/efi/loader/.#bootctlrandom-seed* 0600 root root -"];
 }

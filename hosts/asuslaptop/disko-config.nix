@@ -16,36 +16,30 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot/efi"; # EFI only
-              };
-            };
-
-            boot = {
-              name = "boot";
-              size = "512M";
-              type = "8300";
-              content = {
-                type = "filesystem";
-                format = "ext4";          # Real /boot FS (secure)
                 mountpoint = "/boot";
               };
             };
-
             root = {
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" ];
+                extraArgs = [ "-f" ]; # Override existing partition
+                # Subvolumes must set a mountpoint in order to be mounted,
+                # unless their parent is mounted
                 subvolumes = {
+                  # Subvolume name is different from mountpoint
                   "/rootfs" = {
                     mountpoint = "/";
                   };
+
+                  # Parent is not mounted so the mountpoint must be set
                   "/nix" = {
                     mountOptions = [ "compress=zstd" "noatime" ];
                     mountpoint = "/nix";
                   };
                 };
-                mountpoint = "/";
+
+                mountpoint = "/partition-root";
               };
             };
           };

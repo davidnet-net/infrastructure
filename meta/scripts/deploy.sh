@@ -53,6 +53,8 @@ trap cleanup EXIT
 # Create file structure and copy secret
 mkdir -p "$EXTRA_FILES_DIR/etc/agenix"
 cp secrets/keys/shared.agekey "$EXTRA_FILES_DIR/etc/agenix/"
+tree "$EXTRA_FILES_DIR"
+ls -l "$EXTRA_FILES_DIR/etc/agenix"
 
 # Run nixos-anywhere
 nixos-anywhere --debug \
