@@ -60,3 +60,4 @@ https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/5/default.nix
 
 NOTICE: USING UTC TIMEZONE
 
+IP's >192.168.1.245 zijn niet met DHCP

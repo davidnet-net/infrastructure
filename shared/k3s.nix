@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  vip = "192.168.1.245";
+in
 {
   services.k3s = {
     enable = true;
@@ -8,19 +11,39 @@
 
     extraFlags = toString ([
       "--disable servicelb"
-      "--disable traefik"
       "--disable local-storage"
       ] ++ (if config.networking.hostName == "asuslaptop" then [
         "--cluster-init"
       ] else [
         "--server https://asuslaptop:6443"
-      ]));
+    ]));
+  };
+
+services.keepalived = {
+    enable = true;
+
+    vrrpInstances = {
+      "VI_1" = {
+        interface = if config.networking.hostName == "asuslaptop" then "enp3s0f5"
+                    else if config.networking.hostName == "acerlaptop" then "enp2s0"
+                    else "eth0";
+
+        virtualRouterId = 245;
+
+        state = if config.networking.hostName == "asuslaptop" then "MASTER" else "BACKUP";
+        priority = if config.networking.hostName == "asuslaptop" then 100
+                   else if config.networking.hostName == "acerlaptop" then 90
+                   else 80;
+
+        virtualIps = [{
+          addr = vip;
+          scope = "global";
+        }];
+
+        extraConfig = ''
+          authentication PASS supersecretpass
+        '';
+      };
     };
-
-  # Fixes for longhorn
-  systemd.tmpfiles.rules = [
-    "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
-  ];
-  virtualisation.docker.logDriver = "json-file";
-
+  };
 }
