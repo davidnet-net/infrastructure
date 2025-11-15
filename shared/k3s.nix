@@ -12,6 +12,7 @@ in
     extraFlags = toString ([
       "--disable servicelb"
       "--disable local-storage"
+      "--disable traefik"
       "--tls-san 192.168.1.245"
     ] ++ (if config.networking.hostName == "asuslaptop" then [
       "--cluster-init"
