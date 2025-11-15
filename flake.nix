@@ -11,7 +11,7 @@
 
   outputs = { self, nixpkgs, nixos-anywhere, disko, agenix }: 
     let
-      # NixIgnore - Prevents the nixstore from ballooning
+      # NixIgnore - Prevents the nixstore from ballooning it functions as an .gitignore
       cleanSrc = nixpkgs.lib.cleanSource ./. {
         exclude = [
           "dev/run/**"
@@ -106,7 +106,6 @@
           ./shared/k3s.nix
         ];
 
-        # Use cleanSrc so large files like VM images are ignored
         specialArgs = { inherit cleanSrc; };
       };
 
@@ -128,7 +127,6 @@
           ./shared/k3s.nix
         ];
 
-        # Use cleanSrc so large files like VM images are ignored
         specialArgs = { inherit cleanSrc; };
       };
     };
