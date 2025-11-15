@@ -59,7 +59,7 @@
     -w /var/lib/rancher/ -p wa -k k3s-data
   '';
 
-  # Other
-  security.sudo.wheelNeedsPassword = true;   # force password for sudo (root only has key)
-  security.spectreMDSMitigation.enable = true; # CPU hardening
+  # Security flags
+  security.sudo.enable = false;
+  security.sudo-rs.enable = true;
 }
