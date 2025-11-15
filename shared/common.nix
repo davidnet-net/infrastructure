@@ -25,15 +25,41 @@
     options = "--delete-older-than 1d";
   };
 
+  # Log rotation
   services.logrotate.enable = true;
-  services.logrotate.logs = {
-    "/var/log/audit/audit.log" = { rotate = 5; size = "50M"; compress = true; maxage = 14; };
-    "/var/log/messages"        = { rotate = 5; size = "50M"; compress = true; maxage = 14; };
-    "/var/log/syslog"          = { rotate = 5; size = "50M"; compress = true; maxage = 14; };
-    "/var/log/daemon.log"      = { rotate = 5; size = "50M"; compress = true; maxage = 14; };
-    "/var/log/k3s.log"         = { rotate = 5; size = "50M"; compress = true; maxage = 14; };
+  services.logrotate.settings = {
+    "audit" = {
+      files = [ "/var/log/audit/audit.log" ];
+      frequency = "daily";
+      rotate = 5;
+      size = "50M";
+      compress = true;
+      maxage = 14;
+      enable = true;
+    };
+
+    "syslog" = {
+      files = [ "/var/log/messages" "/var/log/syslog" "/var/log/daemon.log" ];
+      frequency = "daily";
+      rotate = 5;
+      size = "50M";
+      compress = true;
+      maxage = 14;
+      enable = true;
+    };
+
+    "k3s" = {
+      files = [ "/var/log/k3s.log" ];
+      frequency = "daily";
+      rotate = 5;
+      size = "50M";
+      compress = true;
+      maxage = 14;
+      enable = true;
+    };
   };
-  
+
+  # Nix Config
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "25.05";
 }

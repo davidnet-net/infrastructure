@@ -34,28 +34,25 @@
   # More info: https://docs.k3s.io/installation/requirements#inbound-rules-for-k3s-nodes
 
   # Fail2Ban
-  services.fail2ban = {
-    enable = true;
-    jails = {
-      sshd = {
-        enabled = true;
-        maxRetry = 3;
-        findTime = "10m";
-        banTime = "1h";
+  services.fail2ban.enable = true;
+  services.fail2ban.maxretry = 3;
+  services.fail2ban.bantime = "1h";
+  services.fail2ban.jails = {
+    sshd = {
+      settings = {
+        filter = "sshd";
+        logpath = "/var/log/auth.log";
+        backend = "auto";
+        findtime = 600;
       };
     };
   };
 
-  # Auditd
-  services.auditd.enable = true;
-  services.auditd.rules = ''
-    # Monitor k3s token file
+
+  security.auditd.enable = true;
+  environment.etc."audit/rules.d/50-k3s.rules".text = ''
     -w /etc/rancher/k3s-token -p rwxa -k k3s-token
-
-    # Monitor SSH configs
     -w /etc/ssh/ -p wa -k ssh-config
-
-    # Monitor k3s persistent data directory
     -w /var/lib/rancher/ -p wa -k k3s-data
   '';
 
