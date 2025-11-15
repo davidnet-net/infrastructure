@@ -12,14 +12,16 @@ in
     extraFlags = toString ([
       "--disable servicelb"
       "--disable local-storage"
-      ] ++ (if config.networking.hostName == "asuslaptop" then [
-        "--cluster-init"
-      ] else [
-        "--server https://asuslaptop:6443"
+      "--tls-san 192.168.1.245"
+    ] ++ (if config.networking.hostName == "asuslaptop" then [
+      "--cluster-init"
+    ] else [
+      "--server https://192.168.1.245:6443"
     ]));
   };
+  environment.etc."kube/config".source = "/etc/rancher/k3s/k3s.yaml"; # Fix kubectl issue
 
-services.keepalived = {
+  services.keepalived = {
     enable = true;
 
     vrrpInstances = {

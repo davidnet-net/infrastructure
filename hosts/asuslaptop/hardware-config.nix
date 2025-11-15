@@ -5,9 +5,19 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "ahci" "ohci_pci" "ehci_pci" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [
+    "ahci" 
+    "ohci_pci" 
+    "ehci_pci" 
+    "usb_storage" 
+    "sd_mod" 
+    "sr_mod" 
+    "sdhci_pci"
+  ];
+
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  
+  boot.kernelModules = [ "kvm-amd" "jme" ];
   boot.extraModulePackages = [ ];
 
   swapDevices = [ ];
