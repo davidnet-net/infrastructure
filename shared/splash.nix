@@ -95,7 +95,6 @@
     echo "                                                    "
     echo "                NOTICE: SSH key access only              "
     echo "----------------------------------------------------------"
-    cat /etc/agenix/shared.agekey
   '';
 
   # Logs script for TTY2
