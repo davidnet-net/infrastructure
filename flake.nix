@@ -33,6 +33,7 @@
     packages.x86_64-linux.age = nixpkgs.legacyPackages.x86_64-linux.age;
     packages.x86_64-linux.micro = nixpkgs.legacyPackages.x86_64-linux.micro;
     packages.x86_64-linux.kubectl = nixpkgs.legacyPackages.x86_64-linux.kubectl;
+    packages.x86_64-linux.fluxcd = nixpkgs.legacyPackages.x86_64-linux.fluxcd;
     packages.x86_64-linux.agenix = agenix.packages.x86_64-linux.agenix;
     packages.x86_64-linux.nixosAnywhere = nixos-anywhere.packages.x86_64-linux.default;
 
@@ -47,6 +48,7 @@
         nixpkgs.legacyPackages.x86_64-linux.age
         nixpkgs.legacyPackages.x86_64-linux.micro
         nixpkgs.legacyPackages.x86_64-linux.kubectl
+        nixpkgs.legacyPackages.x86_64-linux.fluxcd
         agenix.packages.x86_64-linux.agenix
         nixos-anywhere.packages.x86_64-linux.default
       ];
@@ -63,6 +65,7 @@
         nixpkgs.legacyPackages.x86_64-linux.age
         nixpkgs.legacyPackages.x86_64-linux.micro
         nixpkgs.legacyPackages.x86_64-linux.kubectl
+        nixpkgs.legacyPackages.x86_64-linux.fluxcd
         agenix.packages.x86_64-linux.agenix
         nixos-anywhere.packages.x86_64-linux.default
       ];

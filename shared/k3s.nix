@@ -14,13 +14,12 @@ in
       "--disable local-storage"
       "--disable traefik"
       "--tls-san 192.168.1.245"
-    ] ++ (if config.networking.hostName == "asuslaptop" then [
+    ] ++ (if config.networking.hostName == "asuslaptop" && !builtins.pathExists "/var/lib/rancher/k3s/server/node-token" then [
       "--cluster-init"
     ] else [
       "--server https://192.168.1.245:6443"
     ]));
   };
-  environment.etc."kube/config".source = "/etc/rancher/k3s/k3s.yaml"; # Fix kubectl issue
 
   services.keepalived = {
     enable = true;
