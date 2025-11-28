@@ -3,20 +3,37 @@ kind: ConfigMap
 metadata:
   name: nginx-config
 data:
-  default.conf: |
-    server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+  nginx.conf: |
+    user  nginx;
+    worker_processes  auto;
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
 
-        location / {
-            proxy_pass http://192.168.1.126$request_uri;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
+    events {
+        worker_connections 1024;
+    }
+
+    http {
+        server {
+            listen 80 default_server;
+            listen [::]:80 default_server;
+
+            location / {
+                proxy_pass http://192.168.1.126$request_uri;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
         }
     }
 
+    stream {
+        server {
+            listen 443;
+            proxy_pass 192.168.1.126:443;
+        }
+    }
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -39,17 +56,18 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
+            - containerPort: 443
           volumeMounts:
             - name: nginx-config-volume
-              mountPath: /etc/nginx/conf.d
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
       volumes:
         - name: nginx-config-volume
           configMap:
             name: nginx-config
             items:
-              - key: default.conf
-                path: default.conf
-
+              - key: nginx.conf
+                path: nginx.conf
 ---
 apiVersion: v1
 kind: Service
@@ -61,6 +79,11 @@ spec:
   selector:
     app: nginx
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
