@@ -1,28 +1,9 @@
-kubectl apply -f metallb-native.yaml
+``` helmfile -f k3s/helm/metallb/helmfile.yaml apply ```
 
-wait for start
-kubectl get pods -n metallb-system
-Other debug kubectl get endpoints -n metallb-system
+Wacht todat de metallb is opgestart. (Anders error)
 
-Start metallb
-kubectl apply -f k3s/metallb.yaml
+Laad de values:
+``` kubectl apply -f k3s/helm/metallb/config/metallb-pool.yaml ```
 
-Debug:
-kubectl get ipaddresspools -n metallb-system
-kubectl get l2advertisements -n metallb-system
-
-
-TEST:
-kubectl create deployment nginx --image=nginx
-kubectl expose deployment nginx --port=80 --type=LoadBalancer
-kubectl get svc nginx
-
-curl http://192.168.1.246
-
-Remove Test:
-kubectl delete svc nginx
-kubectl delete deployment nginx
-
-
-Actually run NGINX
-kubectl apply -f k3s/nginx.yaml
+Start NGINX
+``` kubectl apply -f k3s/raw/nginx.yaml ```

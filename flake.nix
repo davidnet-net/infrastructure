@@ -9,9 +9,9 @@
     agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = { self, nixpkgs, nixos-anywhere, disko, agenix }: 
+  outputs = { self, nixpkgs, nixos-anywhere, disko, agenix }:
     let
-      # NixIgnore - Prevents the nixstore from ballooning it functions as an .gitignore
+      # NixIgnore - Prevents the nixstore from ballooning; functions like .gitignore
       cleanSrc = nixpkgs.lib.cleanSource ./. {
         exclude = [
           "dev/run/**"
@@ -37,6 +37,26 @@
     packages.x86_64-linux.agenix = agenix.packages.x86_64-linux.agenix;
     packages.x86_64-linux.nixosAnywhere = nixos-anywhere.packages.x86_64-linux.default;
 
+    # Helm wrapped with plugins
+    packages.x86_64-linux.kubernetes-helm-wrapped = let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in
+      pkgs.wrapHelm pkgs.kubernetes-helm {
+        plugins = with pkgs.kubernetes-helmPlugins; [
+          helm-diff
+          helm-secrets
+        ];
+      };
+
+    # Helmfile wrapped to see Helm plugins
+    packages.x86_64-linux.helmfile-wrapped = let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      helmWrapped = self.packages.x86_64-linux.kubernetes-helm-wrapped;
+    in
+      pkgs.helmfile.override {
+        pluginsDir = helmWrapped.passthru.pluginsDir;
+      };
+
     # Dev Packages
     packages.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
       buildInputs = [
@@ -49,6 +69,8 @@
         nixpkgs.legacyPackages.x86_64-linux.micro
         nixpkgs.legacyPackages.x86_64-linux.kubectl
         nixpkgs.legacyPackages.x86_64-linux.fluxcd
+        self.packages.x86_64-linux.kubernetes-helm-wrapped
+        self.packages.x86_64-linux.helmfile-wrapped
         agenix.packages.x86_64-linux.agenix
         nixos-anywhere.packages.x86_64-linux.default
       ];
@@ -66,6 +88,8 @@
         nixpkgs.legacyPackages.x86_64-linux.micro
         nixpkgs.legacyPackages.x86_64-linux.kubectl
         nixpkgs.legacyPackages.x86_64-linux.fluxcd
+        self.packages.x86_64-linux.kubernetes-helm-wrapped
+        self.packages.x86_64-linux.helmfile-wrapped
         agenix.packages.x86_64-linux.agenix
         nixos-anywhere.packages.x86_64-linux.default
       ];
@@ -91,10 +115,8 @@
           ./shared/splash.nix
         ];
 
-        # Use cleanSrc so large files like VM images are ignored
         specialArgs = { inherit cleanSrc; };
       };
-
 
       # For use in the VM
       testserver = nixpkgs.lib.nixosSystem {
@@ -114,7 +136,6 @@
 
         specialArgs = { inherit cleanSrc; };
       };
-
 
       # Normal servers:
       asuslaptop = nixpkgs.lib.nixosSystem {
