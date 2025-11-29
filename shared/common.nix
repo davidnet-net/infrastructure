@@ -10,6 +10,9 @@
     helm
     helmfile
     kubectl
+    openiscsi
+    cifs-utils
+    nfs-utils
 
     htop
     tree
@@ -58,6 +61,19 @@
       maxage = 14;
       enable = true;
     };
+  };
+
+
+  # Fixes for longhorn
+  systemd.tmpfiles.rules = [
+    "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+  ];
+  virtualisation.docker.logDriver = "json-file";
+
+  # iSCSI Configuration for longhorn
+  services.openiscsi = {
+    enable = true;
+    name = "iqn.2025-11.com.internal:${config.networking.hostName}"; # NAME MUST BE UNIQUE FOR EACH HOST !!
   };
 
   # Nix Config

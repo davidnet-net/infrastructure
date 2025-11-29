@@ -7,3 +7,7 @@ Laad de values:
 
 Start NGINX
 ``` kubectl apply -f k3s/raw/nginx.yaml ```
+
+Start Longhorn
+``` helmfile apply -f k3s/helm/longhorn/helmfile.yaml ```
+

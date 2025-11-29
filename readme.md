@@ -53,11 +53,21 @@ Return to vm
 
 ``` ctrl + alt + 1 ```
 
+# KubeCONFIG
+``` scp root@192.168.1.245:/etc/rancher/k3s/k3s.yaml ~/.kube/config
+ ```
+
+Make sure to update the server ip!!!
+
+
+Kubectl cli will not work on first boot on the server itself
+
 ## Hardware stuff:
 https://github.com/NixOS/nixos-hardware/blob/master/raspberry-pi/5/default.nix
 
-## Timezone
+## Info
 
-NOTICE: USING UTC TIMEZONE
+USING UTC TIMEZONE
 
 IP's >192.168.1.245 zijn niet met DHCP
+

@@ -15,7 +15,7 @@ in
       "--disable traefik"
       "--tls-san 192.168.1.245"
     ] ++ (if config.networking.hostName == "asuslaptop" && !builtins.pathExists "/var/lib/rancher/k3s/server/node-token" then [
-      "--cluster-init"
+      #"--cluster-init"
     ] else [
       "--server https://192.168.1.245:6443"
     ]));
@@ -48,5 +48,10 @@ in
         '';
       };
     };
+  };
+
+  systemd.services.keepalived = {
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
   };
 }

@@ -73,6 +73,11 @@
       sleep 1
     done
     sleep 2
+    if [ "$(/run/current-system/sw/bin/hostname)" != "installerx8664" ]; then
+      mkdir -p ~/.kube
+      cp -s /etc/rancher/k3s/k3s.yaml ~/.kube/config
+      echo "Symlinked .kube config (-s in copy)"
+    fi
     /run/current-system/sw/bin/clear
     cat <<'EOF'
               ____              _     __           __ 
